@@ -1,12 +1,13 @@
 package com.example.OrderSystemService.template.Advisor;
 
 import com.example.OrderSystemService.Base.API.Response.CAPIResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     
@@ -24,6 +25,8 @@ public class GlobalExceptionHandler {
                     .append(", ");
         });
 
+        log.warn("Validation failed: {}", message);
+
         return new CAPIResponse()
                 .setStatus(HttpStatus.BAD_REQUEST)
                 .setErrorMessage(message.toString());
@@ -32,6 +35,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     @ResponseBody
     public CAPIResponse handleNullPointerEx(NullPointerException ex) {
+
+        log.warn("Null pointer exception: {}", ex.getMessage());
+
         return new CAPIResponse()
                 .setStatus(HttpStatus.BAD_REQUEST)
                 .setErrorMessage("Unexpected internal error: " + ex.getMessage());

@@ -25,6 +25,15 @@ public class CustomerService {
 
         Customer customer = new Customer();
 
+        if (customerRepository.existsByEmail(request.getEmail())) {
+
+            log.error("Email already exists");
+            response.setSuccess(false);
+            response.setMessage("Email already exists");
+
+            return response;
+        }
+
         customer.setFullName(request.getFullName());
         customer.setEmail(request.getEmail());
         customer.setPhone(request.getPhone());

@@ -4,11 +4,13 @@ import com.example.OrderSystemService.Base.Class.CResponse;
 import com.example.OrderSystemService.template.API.Request.Customer.CCreateCustomerRequest;
 import com.example.OrderSystemService.template.Model.Table.Customer.Customer;
 import com.example.OrderSystemService.template.Repository.Table.Customer.CustomerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class CustomerService {
 
@@ -16,6 +18,8 @@ public class CustomerService {
     CustomerRepository customerRepository;
 
     public CResponse createCustomer(CCreateCustomerRequest request){
+
+        log.info("create customer");
 
         CResponse response = new CResponse();
 
